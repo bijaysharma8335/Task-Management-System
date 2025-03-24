@@ -13,8 +13,9 @@ import { FaArrowsToDot } from "react-icons/fa6";
 
 import clsx from "clsx";
 import Chart from "../components/Chart";
-import { BGS, PRIORITYSTYLES, TASK_TYPE } from "../utils";
+import { BGS, getInitials, PRIORITYSTYLES, TASK_TYPE } from "../utils";
 import UserInfo from "../components/UserInfo";
+import moment from "moment";
 const TaskTable = ({ tasks }) => {
     const ICONS = {
         high: <MdKeyboardDoubleArrowUp />,
@@ -49,12 +50,12 @@ const TaskTable = ({ tasks }) => {
                 </div>
             </td>
             <td className="py-2">
-                <div className="flex ">
+                <div className="flex">
                     {task.team.map((member, index) => (
                         <div
                             key={index}
                             className={clsx(
-                                "w-7 h-7 rounded-full text-white justify-center text-sm -mr-1",
+                                "w-7 h-7 rounded-full text-white flex items-center justify-center text-sm -mr-1",
                                 BGS[index % BGS.length]
                             )}
                         >
@@ -63,15 +64,68 @@ const TaskTable = ({ tasks }) => {
                     ))}
                 </div>
             </td>
+
+            <td className="py-2 hidden md:block">
+                <span className="text-base text-gray-600">{moment(task?.date).fromNow()}</span>
+            </td>
         </tr>
     );
     return (
         <div className="w-full md:w-2/3 bg-white px-2 md:px-4 pt-4 shadow-md rounded">
-            <table>
+            <table className="w-full">
                 <TableHeader />
                 <tbody>
                     {tasks?.map((task, index) => (
                         <TableRow key={index} task={task} />
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+const UserTable = ({ users }) => {
+    const TableHeader = () => (
+        <thead className="border-b border-gray-300">
+            <tr className="text-black text-left ">
+                <th className="py-2">Full Name</th>
+                <th className="py-2">Status</th>
+                <th className="py-2">Created At</th>
+            </tr>
+        </thead>
+    );
+    const TableRow = ({ user }) => (
+        <tr className="border-b border-gray-200  text-gray-600 hover:bg-gray-400/10 ">
+            <td className="py-2">
+                <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-violet-700">
+                        <span>{getInitials(user?.name)}</span>
+                    </div>
+                    <div>
+                        <p>{user.name}</p>
+                        <span className="text-xs text-black">{user?.role}</span>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <p
+                    className={clsx(
+                        "w-fit rounded-full text-sm ",
+                        user?.isActive ? "bg-blue-200" : "bg-yellow-100"
+                    )}
+                >
+                    { user?.isActive ?"Active":"Disabled"}
+                </p>
+            </td>
+            <td className="py-2 text-sm">{moment(user?.createdAt).fromNow()}</td>
+        </tr>
+    );
+    return (
+        <div className="w-full md:w-1/3 bg-white px-2 md:px-4 pt-4 shadow-md rounded">
+            <table className="w-full ">
+                <TableHeader />
+                <tbody>
+                    {users?.map((user, index) => (
+                        <TableRow key={index + user?._id} user={user} />
                     ))}
                 </tbody>
             </table>
@@ -146,10 +200,10 @@ const Dashboard = () => {
             <div className="w-full flex flex-col md:flex-row gap-4 2xl:gap-10 py-8">
                 {/* /left  */}
 
-                <div className="">
-                    <TaskTable tasks={summary?.last10Task} />
-                </div>
+                <TaskTable tasks={summary?.last10Task} />
+
                 {/* /right */}
+                <UserTable users={summary.users} />
             </div>
         </div>
     );
