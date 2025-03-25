@@ -5,6 +5,17 @@ export function getInitials(fullName) {
 
     return initialStr;
 }
+
+export const formatDate = (date) => {
+    
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const day = date.getDate();
+    const year = date.getFullYear();
+  
+    const formattedDate = `${day}-${month}-${year}`;
+  
+    return formattedDate;
+  };
 export const PRIORITYSTYLES = {
     high: "text-red-600",
     medium: "text-yellow-600",

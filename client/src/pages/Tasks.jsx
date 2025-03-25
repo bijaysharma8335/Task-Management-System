@@ -8,6 +8,9 @@ import Button from "../components/Button";
 import { IoMdAdd } from "react-icons/io";
 import Tabs from "../components/Tabs";
 import TaskTitle from "../components/TaskTitle";
+import GridView from "../components/GridView";
+import { tasks } from "../assets/data";
+import ListView from "../components/ListView";
 
 const TABS = [
     { title: "Grid View", icon: <MdGridView /> },
@@ -51,9 +54,15 @@ const Tasks = () => {
                         </div>
                     )}
 
-                    {
-                        selected===0?<div></div>:<div></div>
-                    }
+                    {selected === 0 ? (
+                        <div>
+                            <GridView tasks={tasks} />
+                        </div>
+                    ) : (
+                        <div>
+                            {/* <ListView /> */}
+                        </div>
+                    )}
                 </Tabs>
             </div>
         </div>
