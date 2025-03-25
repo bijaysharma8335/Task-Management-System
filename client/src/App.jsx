@@ -14,6 +14,7 @@ import React, { Fragment, useRef } from "react";
 import { Transition } from "@headlessui/react";
 import { IoMdClose } from "react-icons/io";
 import clsx from "clsx";
+import { Toaster } from "sonner";
 
 function Layout() {
     const { user } = useSelector((state) => state.auth);
