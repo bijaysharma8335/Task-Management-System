@@ -1,4 +1,4 @@
-import { Tab, TabGroup, TabList, TabPanel } from "@headlessui/react";
+import { Tab, TabGroup, TabList, TabPanels } from "@headlessui/react";
 import React from "react";
 
 function classNames(...classes) {
@@ -27,7 +27,7 @@ const Tabs = ({ tabs, setSelected, children }) => {
                         </Tab>
                     ))}
                 </TabList>
-                <TabPanel className="w-full mt-2">{children}</TabPanel>
+                <TabPanels className="w-full mt-2">{children}</TabPanels>
             </TabGroup>
         </div>
     );

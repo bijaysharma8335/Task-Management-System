@@ -54,13 +54,13 @@ const Tasks = () => {
                         </div>
                     )}
 
-                    {selected === 0 ? (
+                    {selected !== 1 ? (
                         <div>
                             <GridView tasks={tasks} />
                         </div>
                     ) : (
-                        <div>
-                            {/* <ListView /> */}
+                        <div className="w-full">
+                            <ListView tasks={tasks} />
                         </div>
                     )}
                 </Tabs>
