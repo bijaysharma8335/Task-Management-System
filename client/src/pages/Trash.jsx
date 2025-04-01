@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import { MdDelete, MdOutlineRestore } from "react-icons/md";
@@ -8,6 +8,12 @@ import clsx from "clsx";
 import { ICONS } from "../constants/icons";
 
 const Trash = () => {
+    const [openDialog, setOpenDialog] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [msg, setMsg] = useState(null);
+    const [type, setType] = useState("delete");
+    const [selected, setSelected] = useState("");
+
     const TableHeader = ({ item }) => (
         <thead className="border-b border-gray-300">
             <tr className="text-black text-left">
@@ -83,6 +89,15 @@ const Trash = () => {
                     </div>
                 </div>
             </div>
+            {/* <AddUser open={open} setOpen={setOpen} />
+            <ConfirmDialog
+                open={openDialog}
+                setOPen={setOpenDialog}
+                msg={msg}
+                setMsg={setMsg}
+                type={type}
+                setType={setType}
+            /> */}
         </>
     );
 };

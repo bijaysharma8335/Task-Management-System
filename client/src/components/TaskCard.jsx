@@ -4,7 +4,7 @@ import { MdAttachFile } from "react-icons/md";
 import { BiMessageAltDetail } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { BGS, formatDate, PRIORITYSTYLES, TASK_TYPE } from "../utils";
-import TaskDialog from "./TaskDialog";
+import TaskDialog from "./task/TaskDialog";
 import { FaList } from "react-icons/fa";
 import UserInfo from "./UserInfo";
 import { IoMdAdd } from "react-icons/io";

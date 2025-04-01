@@ -1,8 +1,8 @@
 import React,{useState} from "react";
 import { useForm } from "react-hook-form";
 import { DialogTitle } from "@headlessui/react";
-import Textbox from "./Textbox";
-import ModalWrapper from "./ModalWrapper";
+import Textbox from "../Textbox";
+import ModalWrapper from "../ModalWrapper";
 
 const AddTask = ({ open, setOpen }) => {
     const task = "";

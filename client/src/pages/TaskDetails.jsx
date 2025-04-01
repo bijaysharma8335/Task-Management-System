@@ -206,7 +206,7 @@ const Activities = ({ activity, id }) => {
                         {TASKTYPEICON[item.type]}
                     </div>
                     <div className="w-full flex items-center">
-                        <div className="w-0 5 bg-gray-300 h-full"></div>
+                        <div className="w-0.5 bg-gray-300 h-full"></div>
                     </div>
                 </div>
 
