@@ -11,6 +11,7 @@ import TaskTitle from "../components/TaskTitle";
 import GridView from "../components/GridView";
 import { tasks } from "../assets/data";
 import ListView from "../components/ListView";
+import AddTask from "../components/AddTask";
 
 const TABS = [
     { title: "Grid View", icon: <MdGridView /> },
@@ -64,6 +65,7 @@ const Tasks = () => {
                         </div>
                     )}
                 </Tabs>
+                <AddTask open={open} setOpen={setOpen}/>
             </div>
         </div>
     );

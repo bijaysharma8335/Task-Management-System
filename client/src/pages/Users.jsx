@@ -32,8 +32,8 @@ const Users = () => {
                             {getInitials(user.name)}
                         </span>
                     </div>
+                    {user.name}
                 </div>
-                {user.name}
             </td>
             <td className="p-2">{user.title}</td>
             <td className="p-2">{user.email || "user.email.com"}</td>
@@ -45,7 +45,7 @@ const Users = () => {
                         user.isActive ? "bg-blue-200" : "bg-yellow-100"
                     )}
                 >
-                    {user.isActive ?"Active":"Disabled"}
+                    {user.isActive ? "Active" : "Disabled"}
                 </button>
             </td>
             <td className="p-2 flex gap-4  justify-end">

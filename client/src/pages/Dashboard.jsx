@@ -1,13 +1,7 @@
 import React from "react";
 import { summary } from "../assets/data";
 import { FaNewspaper } from "react-icons/fa";
-import {
-    MdAdminPanelSettings,
-    MdEdit,
-    MdKeyboardArrowDown,
-    MdKeyboardArrowUp,
-    MdKeyboardDoubleArrowUp,
-} from "react-icons/md";
+import { MdAdminPanelSettings, MdEdit } from "react-icons/md";
 
 import { FaArrowsToDot } from "react-icons/fa6";
 
@@ -16,12 +10,8 @@ import Chart from "../components/Chart";
 import { BGS, getInitials, PRIORITYSTYLES, TASK_TYPE } from "../utils";
 import UserInfo from "../components/UserInfo";
 import moment from "moment";
+import { ICONS } from "../constants/icons";
 const TaskTable = ({ tasks }) => {
-    const ICONS = {
-        high: <MdKeyboardDoubleArrowUp />,
-        medium: <MdKeyboardArrowUp />,
-        low: <MdKeyboardArrowDown />,
-    };
     const TableHeader = () => (
         <thead className="border-b border-gray-300">
             <tr className="text-black text-left ">
@@ -113,7 +103,7 @@ const UserTable = ({ users }) => {
                         user?.isActive ? "bg-blue-200" : "bg-yellow-100"
                     )}
                 >
-                    { user?.isActive ?"Active":"Disabled"}
+                    {user?.isActive ? "Active" : "Disabled"}
                 </p>
             </td>
             <td className="py-2 text-sm">{moment(user?.createdAt).fromNow()}</td>

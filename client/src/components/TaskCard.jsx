@@ -1,11 +1,6 @@
 import clsx from "clsx";
 import React, { useState } from "react";
-import {
-    MdAttachFile,
-    MdKeyboardArrowDown,
-    MdKeyboardArrowUp,
-    MdKeyboardDoubleArrowUp,
-} from "react-icons/md";
+import { MdAttachFile } from "react-icons/md";
 import { BiMessageAltDetail } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { BGS, formatDate, PRIORITYSTYLES, TASK_TYPE } from "../utils";
@@ -13,12 +8,8 @@ import TaskDialog from "./TaskDialog";
 import { FaList } from "react-icons/fa";
 import UserInfo from "./UserInfo";
 import { IoMdAdd } from "react-icons/io";
+import { ICONS } from "../constants/icons";
 
-const ICONS = {
-    high: <MdKeyboardDoubleArrowUp />,
-    medium: <MdKeyboardArrowUp />,
-    low: <MdKeyboardArrowDown />,
-};
 const TaskCard = ({ task }) => {
     const { user } = useSelector((state) => state.auth);
     const [open, setOpen] = useState(false);
