@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-    MdAttachFile,
-    MdKeyboardArrowDown,
-    MdKeyboardArrowUp,
-    MdKeyboardDoubleArrowUp,
-} from "react-icons/md";
+import { MdAttachFile } from "react-icons/md";
 import { BGS, formatDate, PRIORITYSTYLES, TASK_TYPE } from "../utils";
 import clsx from "clsx";
 import { FaList } from "react-icons/fa";
@@ -12,12 +7,8 @@ import { FaList } from "react-icons/fa";
 import UserInfo from "./UserInfo";
 import Button from "./Button";
 import { BiMessageAltDetail } from "react-icons/bi";
+import { ICONS } from "../constants/icons";
 
-const ICONS = {
-    high: <MdKeyboardDoubleArrowUp />,
-    medium: <MdKeyboardArrowUp />,
-    low: <MdKeyboardArrowDown />,
-};
 const ListView = ({ tasks }) => {
     const [openDialog, setOpenDialog] = useState(false);
     const [selected, setSelected] = useState(null);
@@ -117,8 +108,9 @@ const ListView = ({ tasks }) => {
                 </div>
             </div>
 
+            {/* TODO */}
 
-        
+            {/* <ConfirmDialog open={openDialog} setOpen={setOpen} onClick={deleteHandler}/> */}
         </>
     );
 };
