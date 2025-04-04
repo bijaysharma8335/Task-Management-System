@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { DialogTitle } from "@headlessui/react";
 import Textbox from "../Textbox";
@@ -47,12 +47,10 @@ const AddTask = ({ open, setOpen }) => {
                                     label="Task Date"
                                     className="w-full rounded"
                                     register={register("date", { required: "Date is required" })}
-                                    error={errors.date?errors.date.message:""}
+                                    error={errors.date ? errors.date.message : ""}
                                 />
                             </div>
                         </div>
-
-
                     </div>
                 </form>
             </ModalWrapper>

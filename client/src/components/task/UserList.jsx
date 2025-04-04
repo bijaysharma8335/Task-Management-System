@@ -11,12 +11,24 @@ import { getInitials } from "../../utils";
 
 const UserList = ({ setTeam, team }) => {
     const data = summary.users;
-    const [selected, setSelected] = useState([]);
-    const handleChange = () => {};
+    const [selectedUsers, setSelectedUsers] = useState([]);
+
+    const handleChange = (e) => {
+        setSelectedUsers(ee);
+        setTeam(ee?.map((u) => u._id));
+    };
+    useEffect(() => {
+        if (team?.length < 1) {
+            data && setSelectedUsers([data[0]]);
+        } else {
+            setSelectedUsers(team);
+        }
+    }, []);
+
     return (
         <div>
             <p className="text-gray-700">Assign Task To: </p>
-            <Listbox value={selectedUsers} onChange={(el) => handleChange(el)} multiple>
+            <Listbox value={selectedUsers} onChange={(e) => handleChange(e)} multiple>
                 <div className="relative mt-1">
                     <ListboxButton className="relative w-full cursor-default rounded bg-white pl-3 pr-10 text-left px-3 py-2.5 2xl:py-3 border border-gray-300 sm:text:sm">
                         <span className="block truncate">
