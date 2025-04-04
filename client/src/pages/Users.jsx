@@ -5,12 +5,15 @@ import Button from "../components/Button";
 import { summary } from "../assets/data";
 import { getInitials } from "../utils";
 import clsx from "clsx";
+import AddUser from "../components/AddUser";
+import ConfirmationDialog from "../components/Dialogs";
 
 const Users = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(null);
     const [openAction, setOpenAction] = useState(null);
+    const deleteHandler = () => {};
     const TableHeader = () => (
         <thead className="w-full border-b border-gray-300">
             <tr className="w-full text-black text-left">
@@ -65,29 +68,41 @@ const Users = () => {
         </tr>
     );
     return (
-        <div className="w-full md:px-3 px-0 mb-6">
-            <div className="flex item-center justify-between mb-8 ">
-                <Title title="Team Members" />
-                <Button
-                    label=" Add New User"
-                    icon={<IoMdAdd className="text-lg" />}
-                    className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md 2xl:py-2.5 "
-                    onClick={() => setOpen(true)}
-                />
-            </div>
-            <div className="bg-white px-2 md:px-4 py-4 shadow-md rounded">
-                <div className="overflow-x-auto">
-                    <table className="w-full mb-5">
-                        <TableHeader />
-                        <tbody>
-                            {summary.users.map((user, index) => (
-                                <TableRow key={index} user={user} />
-                            ))}
-                        </tbody>
-                    </table>
+        <>
+            <div className="w-full md:px-3 px-0 mb-6">
+                <div className="flex item-center justify-between mb-8 ">
+                    <Title title="Team Members" />
+                    <Button
+                        label=" Add New User"
+                        icon={<IoMdAdd className="text-lg" />}
+                        className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md 2xl:py-2.5 "
+                        onClick={() => setOpen(true)}
+                    />
+                </div>
+                <div className="bg-white px-2 md:px-4 py-4 shadow-md rounded">
+                    <div className="overflow-x-auto">
+                        <table className="w-full mb-5">
+                            <TableHeader />
+                            <tbody>
+                                {summary.users.map((user, index) => (
+                                    <TableRow key={index} user={user} />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+            <AddUser
+                open={open}
+                setOpen={setOpen}
+                userData={selected}
+                key={new Date().getTime().toString()}
+            />
+
+            <ConfirmationDialog open={openDialog} setOpen={setOpenDialog} onClick={deleteHandler} />
+
+            {/* <UserAction open={openAction} setOpen={setOpenAction} onClick={userActionHandler} /> */}
+        </>
     );
 };
 

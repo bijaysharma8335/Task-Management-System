@@ -1,72 +1,11 @@
-import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
-import { data } from "autoprefixer";
 import React, { Fragment, useState } from "react";
+import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { HiBellAlert } from "react-icons/hi2";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
-import moment from 'moment'
-
-// const data = [
-//     {
-//         _id: "task_001",
-//         team: ["user_001", "user_002", "user_003"],
-//         text: "Design the login page UI",
-//         task: "Create a responsive login page with Tailwind CSS and React.",
-//         notiType: "update",
-//         isRead: ["user_002"],
-//         createdAt: "2025-03-20T12:00:00Z",
-//         updatedAt: "2025-03-21T14:00:00Z",
-//         __v: 0,
-//     },
-//     {
-//         _id: "task_002",
-//         team: ["user_002", "user_004"],
-//         text: "Backend API integration for authentication",
-//         task: "Implement login, register, and authentication using Node.js & JWT.",
-//         notiType: "alert",
-//         isRead: [],
-//         createdAt: "2025-03-21T09:30:00Z",
-//         updatedAt: "2025-03-21T10:15:00Z",
-//         __v: 0,
-//     },
-//     {
-//         _id: "task_003",
-//         team: ["user_001", "user_003"],
-//         text: "Set up database schema",
-//         task: "Define MongoDB schema for users, tasks, and notifications.",
-
-//         notiType: "update",
-//         isRead: ["user_001", "user_003"],
-//         createdAt: "2025-03-19T16:45:00Z",
-//         updatedAt: "2025-03-21T08:00:00Z",
-//         __v: 0,
-//     },
-//     {
-//         _id: "task_004",
-//         team: ["user_001", "user_002", "user_003", "user_004"],
-//         text: "Deploy the application",
-//         task: "Deploy the task management system on Vercel & configure CI/CD.",
-
-//         notiType: "alert",
-//         isRead: [],
-//         createdAt: "2025-03-22T11:00:00Z",
-//         updatedAt: "2025-03-22T14:30:00Z",
-//         __v: 0,
-//     },
-//     {
-//         _id: "task_005",
-//         team: ["user_003", "user_002"],
-//         text: "Test notification system",
-//         task: "Ensure users receive real-time task notifications and updates.",
-
-//         notiType: "info",
-//         isRead: ["user_002"],
-//         createdAt: "2025-03-22T17:20:00Z",
-//         updatedAt: "2025-03-22T18:00:00Z",
-//         __v: 0,
-//     },
-// ];
+import moment from "moment";
+import { data } from "../assets/data";
 
 const ICONS = {
     alert: <HiBellAlert className="h-5 w-5 text-gray-600 group-hover:text-indigo-600" />,

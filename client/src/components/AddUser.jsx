@@ -1,18 +1,27 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import ModalWrapper from "./ModalWrapper";
+import { useSelector } from "react-redux";
 import { DialogTitle } from "@headlessui/react";
+import ModalWrapper from "./ModalWrapper";
 import Textbox from "./Textbox";
 import Button from "./Button";
 import Loading from "./Loader";
 
 const AddUser = ({ open, setOpen, userData }) => {
     let defaultValues = userData ?? {};
+    const { user } = useSelector((state) => state.auth);
+
+    const isLoading = false,
+        isUpdating = false;
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({ defaultValues });
+
+    const handleOnSubmit = () => {};
+
     return (
         <>
             {" "}

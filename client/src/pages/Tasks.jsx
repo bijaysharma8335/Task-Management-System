@@ -10,7 +10,7 @@ import Tabs from "../components/Tabs";
 import TaskTitle from "../components/TaskTitle";
 import GridView from "../components/GridView";
 import { tasks } from "../assets/data";
-import ListView from "../components/ListView";
+import ListView from "../components/task/ListView";
 import AddTask from "../components/task/AddTask";
 
 const TABS = [
@@ -39,6 +39,7 @@ const Tasks = () => {
                 <Title title={status ? `${status} Tasks` : "Tasks"} />
                 {!status && (
                     <Button
+                        onClick={() => setOpen(true)}
                         label="Create Task"
                         icon={<IoMdAdd className="text-lg" />}
                         className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
@@ -65,7 +66,7 @@ const Tasks = () => {
                         </div>
                     )}
                 </Tabs>
-                {/* <AddTask open={open} setOpen={setOpen}/> */}
+                <AddTask open={open} setOpen={setOpen} />
             </div>
         </div>
     );

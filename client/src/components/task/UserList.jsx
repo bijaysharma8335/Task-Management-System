@@ -1,3 +1,4 @@
+import React, { Fragment, useEffect, useState } from "react";
 import {
     Listbox,
     ListboxButton,
@@ -5,17 +6,20 @@ import {
     ListboxOptions,
     Transition,
 } from "@headlessui/react";
-import React, { Fragment } from "react";
+import clsx from "clsx";
+import { MdCheck } from "react-icons/md";
 import { BsChevronExpand } from "react-icons/bs";
 import { getInitials } from "../../utils";
+import { summary } from "../../assets/data";
+
 
 const UserList = ({ setTeam, team }) => {
     const data = summary.users;
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     const handleChange = (e) => {
-        setSelectedUsers(ee);
-        setTeam(ee?.map((u) => u._id));
+        setSelectedUsers(e);
+        setTeam(e?.map((u) => u._id));
     };
     useEffect(() => {
         if (team?.length < 1) {
