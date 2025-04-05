@@ -69,7 +69,7 @@ const ListView = ({ tasks }) => {
                         <div
                             key={member._id}
                             className={clsx(
-                                "w-7 h-7 rounded-full text-white flex items-center justify-center text-sm -mr-1",
+                                "w-7 h-7  text-white flex items-center justify-center text-sm -mr-1",
                                 BGS[index % BGS?.length]
                             )}
                         >

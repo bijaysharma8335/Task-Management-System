@@ -6,6 +6,8 @@ import { PRIORITYSTYLES, TASK_TYPE } from "../utils";
 import { tasks } from "../assets/data";
 import clsx from "clsx";
 import { ICONS } from "../constants/icons";
+import ConfirmationDialog from "../components/Dialogs";
+import AddUser from "../components/AddUser";
 
 const Trash = () => {
     const [openDialog, setOpenDialog] = useState(false);
@@ -60,6 +62,7 @@ const Trash = () => {
                     <div className="flex gap-2 md:gap-4 items-center">
                         <Button
                             label="Restore All"
+                            onClick={() => setOpen(true)}
                             icon={<MdOutlineRestore className="  text-lg hidden" />}
                             className={
                                 "flex flex-row-reverse gap-1 items-center text-black text-sm md:text-base rounded-md 2xl:py-2.5"
@@ -89,15 +92,15 @@ const Trash = () => {
                     </div>
                 </div>
             </div>
-            {/* <AddUser open={open} setOpen={setOpen} />
-            <ConfirmDialog
+            <AddUser open={open} setOpen={setOpen} />
+            <ConfirmationDialog
                 open={openDialog}
                 setOPen={setOpenDialog}
                 msg={msg}
                 setMsg={setMsg}
                 type={type}
                 setType={setType}
-            /> */}
+            />
         </>
     );
 };

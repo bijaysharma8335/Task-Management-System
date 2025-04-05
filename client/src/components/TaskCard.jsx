@@ -9,6 +9,7 @@ import { FaList } from "react-icons/fa";
 import UserInfo from "./UserInfo";
 import { IoMdAdd } from "react-icons/io";
 import { ICONS } from "../constants/icons";
+import AddSubTask from "./task/AddSubTask";
 
 const TaskCard = ({ task }) => {
     const { user } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const TaskCard = ({ task }) => {
                         <span className="uppercase">{task?.priority} Priority</span>
                     </div>
 
-                    {user?.isAdmin && <TaskDialog task={task} />}
+                    {!user?.isAdmin && <TaskDialog task={task} />}
                 </div>
                 <>
                     <div className="flex items-center gap-2">
@@ -95,7 +96,7 @@ const TaskCard = ({ task }) => {
 
                 <div className="w-full pb-2">
                     <button
-                        disabled={user?.isAdmin ? false : true}
+                        disabled={!user?.isAdmin ? false : true}
                         className="w-full flex gap-4 items-center text-sm text-gray-500 font-semibold disabled:cursor-not-allowed disabled::text-gray-300"
                     >
                         <IoMdAdd className="text-lg" />
@@ -104,7 +105,7 @@ const TaskCard = ({ task }) => {
                 </div>
             </div>
 
-            {/* <AddSubTask open={open} setOpen={setOpen} id={task._id} /> */}
+            <AddSubTask open={open} setOpen={setOpen} id={task._id} />
         </>
     );
 };

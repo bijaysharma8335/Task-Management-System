@@ -12,6 +12,7 @@ const AddSubTask = ({ open, setOpen, id }) => {
         formState: { errors },
     } = useForm();
 
+    console.log("addsub task")
     const submitHandler = () => {};
     return (
         <ModalWrapper open={open} setOpen={setOpen}>
@@ -27,7 +28,7 @@ const AddSubTask = ({ open, setOpen, id }) => {
                         label="Title"
                         name="title"
                         className="w-full rounded"
-                        register={register(register("title", { required: "Title is required" }))}
+                        register={register("title", { required: "Title is required" })}
                         error={errors.title ? errors.title.message : ""}
                     />
                     <div className="flex items-center gap-4">
