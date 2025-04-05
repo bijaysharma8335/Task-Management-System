@@ -14,6 +14,7 @@ const ConfirmationDialog = ({
     type = "delete",
     setType = () => {},
 }) => {
+    
     const closeDialog = () => {
         setType("delete");
         setMsg(null);

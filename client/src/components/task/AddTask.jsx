@@ -11,8 +11,6 @@ import Button from "../Button";
 const LISTS = ["TODO", "IN PROGRESS", "COMPLETED"];
 const PRIORITY = ["HIGH", "MEDIUM", "NORMAL", "LOW"];
 const AddTask = ({ open, setOpen }) => {
-
-    console.log("open add task")
     const task = null;
 
     const {
@@ -20,6 +18,7 @@ const AddTask = ({ open, setOpen }) => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    
     const [team, setTeam] = useState(task?.team || []);
     const [stage, setStage] = useState(task?.stage?.toUpperCase() || LISTS[0]);
     const [priority, setPriority] = useState(task?.priority?.toUpperCase() || PRIORITY[2]);

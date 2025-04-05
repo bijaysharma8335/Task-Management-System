@@ -24,7 +24,6 @@ const AddUser = ({ open, setOpen, userData }) => {
 
     return (
         <>
-            {" "}
             <ModalWrapper open={open} setOpen={setOpen}>
                 <form onSubmit={handleSubmit(handleOnSubmit)} className="">
                     <DialogTitle

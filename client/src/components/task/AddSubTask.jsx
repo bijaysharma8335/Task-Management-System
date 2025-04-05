@@ -12,13 +12,13 @@ const AddSubTask = ({ open, setOpen, id }) => {
         formState: { errors },
     } = useForm();
 
-    console.log("addsub task")
+    console.log("add sub task");
     const submitHandler = () => {};
     return (
         <ModalWrapper open={open} setOpen={setOpen}>
             <form onSubmit={handleSubmit(submitHandler)}>
                 <DialogTitle as="h2" className="text-base font-bold leading-6 text-gray-900 mb-4">
-                    Add SUB TASK{" "}
+                    Add SUB TASK
                 </DialogTitle>
 
                 <div className="mt-2 flex flex-col gap-6">
@@ -39,7 +39,7 @@ const AddSubTask = ({ open, setOpen, id }) => {
                             label="Task Date"
                             register={register("date", { required: "Date is required!" })}
                             error={errors.date ? errors.date.message : ""}
-                        />{" "}
+                        />
                         <Textbox
                             placeholder="Tag"
                             type="text"

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { MdAttachFile } from "react-icons/md";
-import { BGS, formatDate, PRIORITYSTYLES, TASK_TYPE } from "../../utils";
-import clsx from "clsx";
 import { FaList } from "react-icons/fa";
+import clsx from "clsx";
+import { BiMessageAltDetail } from "react-icons/bi";
+import { BGS, formatDate, PRIORITYSTYLES, TASK_TYPE } from "../../utils";
 
 import UserInfo from "../UserInfo";
 import Button from "../Button";
-import { BiMessageAltDetail } from "react-icons/bi";
+
 import { ICONS } from "../../constants/icons";
 import ConfirmationDialog from "../Dialogs";
 

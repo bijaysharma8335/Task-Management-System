@@ -1,3 +1,4 @@
+import React, { Fragment } from "react";
 import {
     Listbox,
     ListboxButton,
@@ -5,7 +6,7 @@ import {
     ListboxOptions,
     Transition,
 } from "@headlessui/react";
-import React, { Fragment } from "react";
+
 import { BsChevronExpand } from "react-icons/bs";
 import { MdCheck } from "react-icons/md";
 

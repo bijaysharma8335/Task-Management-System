@@ -1,5 +1,6 @@
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
+
 import { AiTwotoneFolderOpen } from "react-icons/ai";
 import { HiDuplicate } from "react-icons/hi";
 import { MdAdd, MdOutlineEdit } from "react-icons/md";
@@ -62,7 +63,7 @@ const TaskDialog = ({ task }) => {
                         leaveTo="transform opacity-0 scale-95"
                     >
                         <MenuItems className="absolute p-4 right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-                            <div className="px-1 py-1 space-y-2">
+                            <div className="px-1 py-1 space-y-2 ">
                                 {items.map((el) => (
                                     <MenuItem key={el.label}>
                                         {({ active }) => (

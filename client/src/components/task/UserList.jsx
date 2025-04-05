@@ -12,7 +12,6 @@ import { BsChevronExpand } from "react-icons/bs";
 import { getInitials } from "../../utils";
 import { summary } from "../../assets/data";
 
-
 const UserList = ({ setTeam, team }) => {
     const data = summary.users;
     const [selectedUsers, setSelectedUsers] = useState([]);
