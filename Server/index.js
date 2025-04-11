@@ -4,7 +4,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const dbConnection = require("./utils/db");
-// const routes=require("./routes")
+const { errorHandler, routeNotFound } = require("./middleware/errorMiddleware");
+const routes = require("./routes/index");
 
 dotenv.config();
 dbConnection();
@@ -26,10 +27,9 @@ app.get("/", (req, res) => {
     res.send("server is running");
 });
 
-
-// app.use("/api",routes)
-// app.use(routeNotFound)
-// app.use(errorHandler)
+app.use("/api", routes);
+app.use(routeNotFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);

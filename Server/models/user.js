@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
 
@@ -11,7 +11,7 @@ const userSchema = new Schema(
 
         isAdmin: { type: Boolean, required: true, default: false },
 
-        tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+        tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 
         isActive: { type: Boolean, required: true, default: true },
     },
@@ -31,4 +31,4 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 const User = mongoose.model("User", userSchema);
-export default User;
+module.exports =User;

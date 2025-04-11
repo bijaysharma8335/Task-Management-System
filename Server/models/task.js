@@ -1,6 +1,6 @@
-const { default: mongoose } = require("mongoose");
+const  mongoose  = require("mongoose");
 
-const taskSchema = new Schema(
+const taskSchema = new mongoose.Schema(
     {
         title: { type: String, required: true },
         date: { type: Date, default: new Date() },
@@ -24,7 +24,7 @@ const taskSchema = new Schema(
                 activity: String,
                 date: { type: Date, default: new Date() },
                 by: {
-                    type: SChema.Types.ObjectId,
+                    type: mongoose.Schema.Types.ObjectId,
                     ref: "User",
                 },
             },
