@@ -3,12 +3,13 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const dbConnection = require("./utils/db");
+const {dbConnection} = require("./utils");
 const { errorHandler, routeNotFound } = require("./middleware/errorMiddleware");
 const routes = require("./routes/index");
 
 dotenv.config();
 dbConnection();
+
 const PORT = process.env.PORT || 5000;
 const app = express();
 
