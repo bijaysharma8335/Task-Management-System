@@ -1,5 +1,6 @@
 const Notification = require("../models/notification");
 const Task = require("../models/task");
+const User = require("../models/user");
 
 const createTask = async (req, res) => {
     try {
@@ -51,9 +52,7 @@ const postTaskActivity = async (req, res) => {
         task.activities.push(data);
         await task.save();
 
-        res.status(200).json({status:true,message:"Activity posted successfully"});
-
-
+        res.status(200).json({ status: true, message: "Activity posted successfully" });
     } catch (error) {
         console.log(error);
 
@@ -61,11 +60,27 @@ const postTaskActivity = async (req, res) => {
     }
 };
 
+const dashboardStatistics = async (req, res) => {
+    try {
+        const { userId, isAdmin } = req.user;
+        const allTasks = isAdmin
+            ? await Task.find({ isTrashed: false })
+                  .populate({ path: "team", select: "name role title email" })
+                  .sort({ _id: -1 })
+            : await Task.find({ isTrashed: false, team: { $all: [userId] } })
+                  .populate({ path: "team", select: "name role title email" })
+                  .sort({ _id: -1 });
 
-const dashboardStatistics=async(req,res)=>{
-    const {userId,isAdmin}=req.user;
-    const allTasks=isAdmin?await Task.find({isTrashed:false,}).populate({path:"team",select:"name role title email",}).sort({_id:-1}):await
-}
+        const users = await User.find({ isActive: true })
+            .select("name title role isAdmin createdAt")
+            .limit(10)
+            .sort({ _id: -1 });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ status: false, message: error.message });
+    }
+};
+
 const duplicateTask = async (req, res) => {
     try {
         const { id } = -req.params;
@@ -220,4 +235,6 @@ module.exports = {
     getTasks,
     createSubTask,
     deleteRestoreTask,
+    postTaskActivity,
+    dashboardStatistics,
 };
