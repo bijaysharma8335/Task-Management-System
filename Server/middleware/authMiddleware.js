@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
-const protectedRoutes = async (req, res, next) => {
+const protectedRoute = async (req, res, next) => {
     try {
         let token = req.cookiies?.token;
         if (token) {
@@ -33,4 +33,4 @@ const isAdminRoute = (req, res, next) => {
     }
 };
 
-module.exports = { isAdminRoute, protectedRoutes };
+module.exports = { isAdminRoute, protectedRoute };
