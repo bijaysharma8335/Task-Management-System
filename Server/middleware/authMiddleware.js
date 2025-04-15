@@ -3,15 +3,15 @@ const User = require("../models/user");
 
 const protectedRoute = async (req, res, next) => {
     try {
-        let token = req.cookiies?.token;
+        let token = req.cookies?.token;
         if (token) {
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
             const response = await User.findById(decodedToken.userId).select("isAdmin email");
 
             req.user = {
                 email: response.email,
-                isADmin: response.isAdmin,
-                userId: decodedToken.userID,
+                isAdmin: response.isAdmin,
+                userId: decodedToken.userId,
             };
             next();
         } else {

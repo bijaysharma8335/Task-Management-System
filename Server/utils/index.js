@@ -11,15 +11,19 @@ const dbConnection = async () => {
         console.log("Database error" + error);
     }
 };
+
 const createJWT = (res, userId) => {
     const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: "1d",
     });
+    // console.log(token);
     res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 1 * 24 * 60 * 60 * 1000,
     });
+    // console.log(res);
 };
+
 module.exports = { dbConnection, createJWT };

@@ -5,9 +5,10 @@ const Notification = require("../models/notification");
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password, isAdmin, role, title } = req.body;
-        const userExist = User.findOne({ email });
+        const { email, name, password, isAdmin, role, title } = req.body;
 
+        const userExist = await User.findOne({ email });
+        // console.log(userExist, "userexist");
         if (userExist) {
             return res.status(400).json({ status: false, message: "User already exists" });
         }
@@ -27,26 +28,33 @@ const registerUser = async (req, res) => {
     }
 };
 
-const loginUser = async () => {
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        // console.log(req.body);
         const user = await User.findOne({ email });
+        // console.log(user);
 
         if (!user) {
             res.status(401).json({ status: false, message: "Invalid email or password" });
         }
-        if (!user.isActive) {
+
+        if (!user?.isActive) {
             res.status(401).json({
                 status: false,
                 message: "User account has been deactivated , contact the administrator",
             });
         }
-        const isMatch = await User.matchPassword(password);
-        if (user & isMatch) {
+
+        const isMatch = await user.matchPassword(password);
+
+        if (user && isMatch) {
+            // console.log(user + "------------" + isMatch);
             createJWT(res, user._id);
             user.password = undefined;
             res.status(200).json(user);
         } else {
+          
             return res.status(401).json({ status: false, message: "Invalid email or password" });
         }
     } catch (error) {
