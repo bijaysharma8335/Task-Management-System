@@ -6,14 +6,34 @@ import { summary } from "../assets/data";
 import { getInitials } from "../utils";
 import clsx from "clsx";
 import AddUser from "../components/AddUser";
-import ConfirmationDialog from "../components/Dialogs";
+import  { ConfirmationDialog, UserAction } from "../components/Dialogs";
+import {
+    useDeleteUserMutation,
+    useGetTeamListQuery,
+    useUserActionMutation,
+} from "../redux/slices/api/userApiSlice";
+import { toast } from "react-toastify";
 
 const Users = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(null);
     const [openAction, setOpenAction] = useState(null);
+
+    const { data, isLoading, error } = useGetTeamListQuery();
+    const [deleteUser] = useDeleteUserMutation();
+    const[userAction] = useUserActionMutation();
+
+    // console.log(data)
     const deleteHandler = () => {};
+
+    const userActionHandler = async () => {
+        try {
+        } catch (err) {
+            console.log(err);
+            toast.error(err.data.message||err.error)
+        }
+    };
     const TableHeader = () => (
         <thead className="w-full border-b border-gray-300">
             <tr className="w-full text-black text-left">
@@ -84,7 +104,7 @@ const Users = () => {
                         <table className="w-full mb-5">
                             <TableHeader />
                             <tbody>
-                                {summary.users.map((user, index) => (
+                                {data?.map((user, index) => (
                                     <TableRow key={index} user={user} />
                                 ))}
                             </tbody>
@@ -101,7 +121,7 @@ const Users = () => {
 
             <ConfirmationDialog open={openDialog} setOpen={setOpenDialog} onClick={deleteHandler} />
 
-            {/* <UserAction open={openAction} setOpen={setOpenAction} onClick={userActionHandler} /> */}
+            <UserAction open={openAction} setOpen={setOpenAction} onClick={userActionHandler} />
         </>
     );
 };

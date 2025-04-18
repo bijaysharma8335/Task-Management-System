@@ -9,7 +9,8 @@ import UserInfo from "../UserInfo";
 import Button from "../Button";
 
 import { ICONS } from "../../constants/icons";
-import ConfirmationDialog from "../Dialogs";
+import { ConfirmationDialog } from "../Dialogs";
+
 
 const ListView = ({ tasks }) => {
     const [openDialog, setOpenDialog] = useState(false);

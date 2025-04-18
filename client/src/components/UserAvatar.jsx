@@ -6,15 +6,24 @@ import { getInitials } from "../utils";
 import { FaUser, FaUserLock } from "react-icons/fa";
 import { IoLogInOutline } from "react-icons/io5";
 import { logout } from "../redux/slices/authSlice";
+import { toast } from "react-toastify";
+import { useLogoutMutation } from "../redux/slices/api/authApiSlice";
 
 const UserAvatar = () => {
     const [open, setOpen] = useState(false);
     const [openPassword, setOpenPassword] = useState(false);
     const { user } = useSelector((state) => state.auth);
+    const [logoutUser] = useLogoutMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const logoutHandler = () => {
-        dispatch(logout());
+    const logoutHandler = async () => {
+        try {
+            await logoutUser().unwrap();
+            dispatch(logout());
+            navigate("/login");
+        } catch (error) {
+            toast.error("Something went wrong!");
+        }
     };
     return (
         <>

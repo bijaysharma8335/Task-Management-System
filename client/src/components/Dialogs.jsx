@@ -5,7 +5,7 @@ import Button from "./Button";
 import { FaQuestion } from "react-icons/fa";
 import clsx from "clsx";
 
-const ConfirmationDialog = ({
+export const ConfirmationDialog = ({
     open,
     setOpen,
     msg,
@@ -14,7 +14,6 @@ const ConfirmationDialog = ({
     type = "delete",
     setType = () => {},
 }) => {
-    
     const closeDialog = () => {
         setType("delete");
         setMsg(null);
@@ -68,4 +67,45 @@ const ConfirmationDialog = ({
     );
 };
 
-export default ConfirmationDialog;
+export function UserAction({ open, setOpen, onClick = () => {} }) {
+    const closeDialog = () => {
+        setOpen(false);
+    };
+
+    return (
+        <>
+            <ModalWrapper open={open} setOpen={closeDialog}>
+                <div className="py-4 w-full flex flex-col gap-4 items-center justify-center">
+                    <DialogTitle as="h3" className="">
+                        <p className={clsx("p-3 rounded-full ", "text-red-600 bg-red-200")}>
+                            <FaQuestion size={60} />
+                        </p>
+                    </DialogTitle>
+
+                    <p className="text-center text-gray-500">
+                        {"Are you sure you want to activate or deactive this account?"}
+                    </p>
+
+                    <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse gap-4">
+                        <Button
+                            type="button"
+                            className={clsx(
+                                " px-8 text-sm font-semibold text-white sm:w-auto",
+                                "bg-red-600 hover:bg-red-500"
+                            )}
+                            onClick={onClick}
+                            label={"Yes"}
+                        />
+
+                        <Button
+                            type="button"
+                            className="bg-white px-8 text-sm font-semibold text-gray-900 sm:w-auto border"
+                            onClick={() => closeDialog()}
+                            label="No"
+                        />
+                    </div>
+                </div>
+            </ModalWrapper>
+        </>
+    );
+}

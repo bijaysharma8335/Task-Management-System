@@ -54,7 +54,6 @@ const loginUser = async (req, res) => {
             user.password = undefined;
             res.status(200).json(user);
         } else {
-          
             return res.status(401).json({ status: false, message: "Invalid email or password" });
         }
     } catch (error) {
@@ -77,7 +76,7 @@ const logoutUser = async (req, res) => {
 
 const getTeamList = async (req, res) => {
     try {
-        const users = await User.find().select("name email role title");
+        const users = await User.find().select("name email role title isActive");
         res.status(200).json(users);
     } catch (error) {
         console.log(error);

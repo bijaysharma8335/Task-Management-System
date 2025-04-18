@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AddSubTask from "./AddSubTask";
-import ConfirmationDialog from "../Dialogs";
+import { ConfirmationDialog } from "../Dialogs";
 
 const TaskDialog = ({ task }) => {
     const [open, setOpen] = useState(false);

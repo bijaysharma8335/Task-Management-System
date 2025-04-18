@@ -3,6 +3,12 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Textbox from "../components/Textbox";
 import Button from "../components/Button";
+import { useLoginMutation } from "../redux/slices/api/authApiSlice";
+import { GrToast } from "react-icons/gr";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../redux/slices/authSlice";
+import Loading from "../components/Loader";
 const Login = () => {
     const user = "";
     const {
@@ -10,11 +16,23 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-
-    const submitHandler = async () => {
-        console.log("submit");
-    };
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [login, { isLoading }] = useLoginMutation();
+
+    const submitHandler = async (data) => {
+        try {
+            const result = await login(data);
+
+            dispatch(setCredentials(result?.data));
+
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.data?.message || error.message);
+        }
+    };
+
     useEffect(() => {
         user && navigate("/dashboard");
     }, [user]);
@@ -80,11 +98,15 @@ const Login = () => {
                                 Forget Password?
                             </span>
 
-                            <Button
-                                type="submit"
-                                label="submit"
-                                className="w-full h-10 bg-blue-700 text-white"
-                            />
+                            {isLoading ? (
+                                <Loading />
+                            ) : (
+                                <Button
+                                    type="submit"
+                                    label="submit"
+                                    className="w-full h-10 bg-blue-700 text-white"
+                                />
+                            )}
                         </div>
                     </form>
                 </div>

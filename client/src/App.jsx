@@ -15,7 +15,7 @@ import { Transition } from "@headlessui/react";
 import { IoMdClose } from "react-icons/io";
 import clsx from "clsx";
 
-
+import { ToastContainer } from "react-toastify";
 function Layout() {
     const { user } = useSelector((state) => state.auth);
     const location = useLocation();
@@ -80,7 +80,7 @@ const MobileSidebar = () => {
                             </div>
 
                             <div className="mt-10">
-                                <Sidebar/>
+                                <Sidebar />
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,8 @@ function App() {
 
                 <Route path="/login" element={<Login />} />
             </Routes>
-          
+
+            <ToastContainer />
         </main>
     );
 }

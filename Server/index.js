@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const {dbConnection} = require("./utils");
+
+const { dbConnection } = require("./utils");
 const { errorHandler, routeNotFound } = require("./middleware/errorMiddleware");
 const routes = require("./routes/index");
 
