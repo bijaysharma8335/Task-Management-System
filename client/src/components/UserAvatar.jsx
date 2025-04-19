@@ -93,6 +93,7 @@ const UserAvatar = () => {
                     </Transition>{" "}
                 </Menu>
             </div>
+            
             <AddUser open={open} setOpen={setOpen} userData={user} />
 
             <ChangePassword open={openPassword} setOpen={setOpenPassword} />

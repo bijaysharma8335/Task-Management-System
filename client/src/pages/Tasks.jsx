@@ -12,6 +12,7 @@ import GridView from "../components/GridView";
 import { tasks } from "../assets/data";
 import ListView from "../components/task/ListView";
 import AddTask from "../components/task/AddTask";
+import { useGetAllTasksQuery } from "../redux/slices/api/taskApiSlice";
 
 const TABS = [
     { title: "Grid View", icon: <MdGridView /> },
@@ -27,9 +28,17 @@ const Tasks = () => {
     const params = useParams();
     const [selected, setSelected] = useState(0);
     const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
+
     const status = params?.status || "";
-    return loading ? (
+
+    const { data, isLoading } = useGetAllTasksQuery({
+        strQuery: status,
+        isTrashed: "",
+        search: "",
+    });
+
+    console.log("datatasks", data);
+    return isLoading ? (
         <div className="py-10">
             <Loading />
         </div>
@@ -58,11 +67,11 @@ const Tasks = () => {
 
                     {selected !== 1 ? (
                         <div>
-                            <GridView tasks={tasks} />
+                            <GridView tasks={data?.tasks} />
                         </div>
                     ) : (
                         <div className="w-full">
-                            <ListView tasks={tasks} />
+                            <ListView tasks={data?.tasks} />
                         </div>
                     )}
                 </Tabs>
