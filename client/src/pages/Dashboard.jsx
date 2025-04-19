@@ -126,7 +126,7 @@ const UserTable = ({ users }) => {
 };
 const Dashboard = () => {
     const { data, isLoading } = useGetDashboardStatisticsQuery();
-    console.log("data", data);
+    // console.log("data", data);
 
     if (isLoading)
         return (

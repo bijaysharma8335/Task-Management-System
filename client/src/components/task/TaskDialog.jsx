@@ -10,6 +10,11 @@ import { BsThreeDots } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import AddSubTask from "./AddSubTask";
 import { ConfirmationDialog } from "../Dialogs";
+import {
+    useDuplicateTaskMutation,
+    useTrashTaskMutation,
+} from "../../redux/slices/api/taskApiSlice";
+import { toast } from "react-toastify";
 
 const TaskDialog = ({ task }) => {
     const [open, setOpen] = useState(false);
@@ -18,9 +23,44 @@ const TaskDialog = ({ task }) => {
 
     const navigate = useNavigate();
 
-    const duplicateHandler = () => {};
-    const deleteClicks = () => {};
-    const deleteHandler = () => {};
+    const [deleteTask] = useTrashTaskMutation();
+    const [duplicateTask] = useDuplicateTaskMutation();
+
+    const duplicateHandler = async () => {
+        try {
+            const res = await duplicateTask(task?._id).unwrap();
+
+            toast.success(res?.message);
+
+            setTimeout(() => {
+                setOpenDialog(false);
+                window.location.reload();
+            }, 500);
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.data.message || error.error);
+        }
+    };
+    const deleteClicks = () => {
+        setOpenDialog(true);
+    };
+
+    const deleteHandler = async () => {
+        
+        try {
+            const res = await deleteTask({ id: task?._id, isTrashed: true }).unwrap();
+
+            toast.success(res?.message);
+
+            setTimeout(() => {
+                setOpenDialog(false);
+                window.location.reload();
+            }, 500);
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.data.message || error.error);
+        }
+    };
 
     const items = [
         {

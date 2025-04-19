@@ -12,7 +12,6 @@ const AddSubTask = ({ open, setOpen, id }) => {
         formState: { errors },
     } = useForm();
 
-    console.log("add sub task");
     const submitHandler = () => {};
     return (
         <ModalWrapper open={open} setOpen={setOpen}>

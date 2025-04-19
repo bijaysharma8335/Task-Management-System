@@ -6,7 +6,7 @@ import { PRIORITYSTYLES, TASK_TYPE } from "../utils";
 import { tasks } from "../assets/data";
 import clsx from "clsx";
 import { ICONS } from "../constants/icons";
-import ConfirmationDialog from "../components/Dialogs";
+import {ConfirmationDialog} from "../components/Dialogs";
 import AddUser from "../components/AddUser";
 
 const Trash = () => {
@@ -16,7 +16,30 @@ const Trash = () => {
     const [type, setType] = useState("delete");
     const [selected, setSelected] = useState("");
 
-    const TableHeader = ({ item }) => (
+    const deleteAllClick = () => {
+        setType("deleteAll");
+        setMsg("Do you want to permanently delete all items?");
+        setOpenDialog(true);
+    };
+    const restoreAllClick = () => {
+        setType("restoreAll");
+        setMsg("Do you want to restore all items in the trash?");
+        setOpenDialog(true);
+    };
+    const deleteClick = (id) => {
+        setType("delete");
+        setSelected(id);
+        setOpenDialog(true);
+    };
+
+    const restoreClick = (id) => {
+        setSelected(id);
+        setType("restore");
+        setMsg("Do you want to restore the selected item?");
+        setOpenDialog(true);
+    };
+
+    const TableHeader = () => (
         <thead className="border-b border-gray-300">
             <tr className="text-black text-left">
                 <th className="py-2">Task Title</th>
@@ -48,8 +71,14 @@ const Trash = () => {
             <td className="py-2 text-sm">{new Date(item.date).toDateString()}</td>
 
             <td className="py-2 flex gap-1 justify-end">
-                <Button icon={<MdOutlineRestore className="text-xl text-gray-500" />} />
-                <Button icon={<MdDelete className="text-xl text-red-600" />} />
+                <Button
+                    icon={<MdOutlineRestore className="text-xl text-gray-500" />}
+                    onClick={() => restoreClick(item._id)}
+                />
+                <Button
+                    icon={<MdDelete className="text-xl text-red-600" />}
+                    onClick={() => deleteClick(item._id)}
+                />
             </td>
         </tr>
     );
@@ -62,11 +91,12 @@ const Trash = () => {
                     <div className="flex gap-2 md:gap-4 items-center">
                         <Button
                             label="Restore All"
-                            onClick={() => setOpen(true)}
+                            // onClick={() => setOpen(true)}
                             icon={<MdOutlineRestore className="  text-lg hidden" />}
                             className={
                                 "flex flex-row-reverse gap-1 items-center text-black text-sm md:text-base rounded-md 2xl:py-2.5"
                             }
+                            onClick={() => restoreAllClick()}
                         />
 
                         <Button
@@ -75,6 +105,7 @@ const Trash = () => {
                             className={
                                 "flex flex-row-reverse gap-1 items-center text-red-600 text-sm md:text-base rounded-md 2xl:py-2.5"
                             }
+                            onClick={() => deleteAllClick()}
                         />
                     </div>
                 </div>
@@ -100,6 +131,7 @@ const Trash = () => {
                 setMsg={setMsg}
                 type={type}
                 setType={setType}
+                // onClick={() => deleteRestoreHandler()}
             />
         </>
     );

@@ -37,7 +37,7 @@ const Tasks = () => {
         search: "",
     });
 
-    console.log("datatasks", data);
+    // console.log("datatasks", data);
     return isLoading ? (
         <div className="py-10">
             <Loading />

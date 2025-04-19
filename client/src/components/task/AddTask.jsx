@@ -7,28 +7,139 @@ import SelectList from "../SelectList";
 import UserList from "./UserList";
 import { BiImages } from "react-icons/bi";
 import Button from "../Button";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+import { app } from "../../utils/firebase";
+import { useCreateTaskMutation, useUpdateTaskMutation } from "../../redux/slices/api/taskApiSlice";
+import { toast } from "react-toastify";
+import { dateFormatter } from "../../utils";
 
 const LISTS = ["TODO", "IN PROGRESS", "COMPLETED"];
 const PRIORITY = ["HIGH", "MEDIUM", "NORMAL", "LOW"];
-const AddTask = ({ open, setOpen }) => {
-    const task = null;
+
+const uploadFileURLs = [];
+
+const AddTask = ({ open, setOpen, task }) => {
+    const defaultValues = {
+        title: task?.title || "",
+        date: dateFormatter(task?.date || new Date()),
+        team: [],
+        stage: "",
+        priority: "",
+        assets: [],
+    };
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
-    
+    } = useForm({ defaultValues });
+
     const [team, setTeam] = useState(task?.team || []);
     const [stage, setStage] = useState(task?.stage?.toUpperCase() || LISTS[0]);
     const [priority, setPriority] = useState(task?.priority?.toUpperCase() || PRIORITY[2]);
     const [assets, setAssets] = useState([]);
     const [uploading, setUploading] = useState(false);
 
-    const submitHandler = () => {};
+    const [createTask, { isLoading }] = useCreateTaskMutation();
+    const [updateTask, { isLoading: isUpdating }] = useUpdateTaskMutation();
+    const URLS = task?.assets ? [...task.assets] : [];
+
+    const submitHandler = async (data) => {
+        for (const file of assets) {
+            setUploading(true);
+            try {
+                await uploadFile(file);
+            } catch (err) {
+                console.log("Error uploading file", err.message);
+                return;
+            } finally {
+                setUploading(false);
+            }
+        }
+        try {
+            const newData = {
+                ...data,
+                assets: [...URLS, ...uploadFileURLs],
+                team,
+                stage,
+                priority,
+            };
+            const res = task?._id
+                ? await updateTask({ ...newData, id: task?._id }).unwrap()
+                : await createTask(newData).unwrap();
+
+            toast.success(res.message);
+            setTimeout(() => {
+                setOpen(false);
+            }, 500);
+        } catch (err) {
+            console.log(err);
+            toast.error(err.data.message || err.error);
+        }
+    };
 
     const handleSelect = (e) => {
-        setAssets(e.target.files);
+        setAssets(e.target.files[0]);
+    };
+
+    // const uploadFile = async (file) => {
+    //     const storage = getStorage(app);
+    //     const name = new Date().getTime() + file.name;
+
+    //     const storageRef = ref(storage, name);
+    //     const uploadTask = uploadBytesResumable(storageRef, file);
+
+    //     return new Promise((resolve, reject) => {
+    //         uploadTask.on(
+    //             "state_changed",
+    //             (snapshot) => {
+    //                 console.log("Uploading");
+    //             },
+    //             (error) => {
+    //                 reject(error);
+    //             },
+    //             () => {
+    //                 getDownloadURL(uploadTask.snapshot.ref)
+    //                     .then((downloadURL) => {
+    //                         uploadFileURLs.push(downloadURL);
+    //                         resolve();
+    //                     })
+    //                     .catch((error) => {
+    //                         reject(error);
+    //                     });
+    //             }
+    //         );
+    //     });
+    // };
+    const uploadFile = async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", process.env.CLOUDINARY_PRESET); // replace with your preset
+        formData.append("cloud_name", process.env.CLOUDINARY_CLOUD_NAME); // replace with your cloud name
+
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await fetch(
+                    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
+                    {
+                        method: "POST",
+                        body: formData,
+                    }
+                );
+
+                const data = await res.json();
+
+                if (data.secure_url) {
+                    uploadFileURLs.push(data.secure_url);
+                    resolve();
+                } else {
+                    reject(new Error("Upload failed"));
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
     };
 
     return (

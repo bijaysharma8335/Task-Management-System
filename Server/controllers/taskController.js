@@ -125,10 +125,10 @@ const dashboardStatistics = async (req, res) => {
 
 const duplicateTask = async (req, res) => {
     try {
-        const { id } = -req.params;
+        const { id } = req.params;
         const task = await Task.findById(id);
 
-        const newTask = await Task.create({ ...task, title: task.title + "-Duplicate" });
+        const newTask = await Task.create({ ...task, title: task.title + "- Duplicate" });
 
         newTask.team = task.team;
         newTask.subTasks = task.subTasks;
@@ -138,6 +138,7 @@ const duplicateTask = async (req, res) => {
 
         await newTask.save();
 
+        //send notifications to users of task
         let text = "New task has been assigned to you";
         if (task.team.length > 1) {
             text = text + `and ${task.team.length - 1} others.`;
@@ -148,6 +149,7 @@ const duplicateTask = async (req, res) => {
             ` THe task priority is set a  ${
                 task.priority
             } priority, socheck and act accordingly. The task date is  ${task.date.toDateString()}. Thank You!`;
+        await Notification.create({ team: task.team, text, task: newTask._id });
         res.status(200).json({ status: true, message: "Task duplicated successfully" });
     } catch (error) {
         console.log(error);

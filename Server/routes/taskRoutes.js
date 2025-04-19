@@ -23,10 +23,12 @@ router.post("/duplicate/:id", protectedRoute, isAdminRoute, duplicateTask);
 router.post("/activity/:id", protectedRoute, postTaskActivity);
 
 router.get("/dashboard", protectedRoute, dashboardStatistics);
+
 router.get("/", protectedRoute, getTasks);
 router.get("/:id", protectedRoute, getTask);
 
 router.put("/create-subtask/:id", protectedRoute, isAdminRoute, createSubTask);
+
 router.put("/update/:id", protectedRoute, isAdminRoute, updateTask);
 
 router.put("/:id", protectedRoute, trashTask);
