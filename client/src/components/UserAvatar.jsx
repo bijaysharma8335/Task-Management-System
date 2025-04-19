@@ -8,14 +8,18 @@ import { IoLogInOutline } from "react-icons/io5";
 import { logout } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
 import { useLogoutMutation } from "../redux/slices/api/authApiSlice";
+import AddUser from "./AddUser";
+import ChangePassword from "./ChangePassword";
 
 const UserAvatar = () => {
     const [open, setOpen] = useState(false);
     const [openPassword, setOpenPassword] = useState(false);
     const { user } = useSelector((state) => state.auth);
-    const [logoutUser] = useLogoutMutation();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [logoutUser] = useLogoutMutation();
     const logoutHandler = async () => {
         try {
             await logoutUser().unwrap();
@@ -89,6 +93,9 @@ const UserAvatar = () => {
                     </Transition>{" "}
                 </Menu>
             </div>
+            <AddUser open={open} setOpen={setOpen} userData={user} />
+
+            <ChangePassword open={openPassword} setOpen={setOpenPassword} />
         </>
     );
 };

@@ -9,6 +9,7 @@ import Loading from "./Loader";
 import { useRegisterMutation } from "../redux/slices/api/authApiSlice";
 
 import { toast } from "react-toastify";
+
 import { useUpdateUserMutation } from "../redux/slices/api/userApiSlice";
 import { setCredentials } from "../redux/slices/authSlice";
 
@@ -33,7 +34,7 @@ const AddUser = ({ open, setOpen, userData }) => {
             if (userData) {
                 const result = await updateUser(data).unwrap();
 
-                toast.success(result?.message);
+                toast.success("Profile updated Successfully");
 
                 if (userData?._id === user?._id) {
                     dispatch(setCredentials(...result.user));

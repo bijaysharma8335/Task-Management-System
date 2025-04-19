@@ -20,20 +20,55 @@ const Users = () => {
     const [selected, setSelected] = useState(null);
     const [openAction, setOpenAction] = useState(null);
 
-    const { data, isLoading, error } = useGetTeamListQuery();
+    const { data, isLoading, error,refetch } = useGetTeamListQuery();
     const [deleteUser] = useDeleteUserMutation();
     const[userAction] = useUserActionMutation();
 
     // console.log(data)
-    const deleteHandler = () => {};
+    const deleteHandler = async() => {
+        try {
+            const result=await deleteUser(selected)
+            refetch();
+            toast.success("Deleted Successfully");
+            setSelected(null)
+            setTimeout(() => {
+                setOpenDialog(false)
+            }, 500);
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.data.message||err.error)
+        }
+    };
 
     const userActionHandler = async () => {
         try {
+            const result=await userAction({isActive:!selected.isActive,id:selected._id});
+            refetch();
+
+            toast.success(result.data.message);
+
+            setTimeout(() => {
+                setOpenAction(false)
+            }, 500);
+
         } catch (err) {
             console.log(err);
-            toast.error(err.data.message||err.error)
+            toast.error(err?.data.message||err.error)
         }
     };
+    const deleteClick=(id)=>{
+     setSelected(id);
+     setOpenDialog(true)   
+    }
+    const editClick=(el)=>{
+        setSelected(el);
+        setOpen(true);
+    }
+
+    const userStatusClick=(el)=>{
+        setSelected(el);
+        setOpenAction(true);
+    }
     const TableHeader = () => (
         <thead className="w-full border-b border-gray-300">
             <tr className="w-full text-black text-left">
@@ -62,7 +97,7 @@ const Users = () => {
             <td className="p-2">{user.email || "user.email.com"}</td>
             <td className="p-2">{user.role}</td>
             <td>
-                <button
+                <button onClick={()=>userStatusClick(user)}
                     className={clsx(
                         "w-fit px-4 py-1 rounded-full ",
                         user.isActive ? "bg-blue-200" : "bg-yellow-100"
@@ -76,13 +111,14 @@ const Users = () => {
                     className="text-blue-600 hover:text-blue-500 font-semibold sm:px-0 "
                     label="Edit"
                     type="button"
+                    onClick={()=>editClick(user)}
                 />
 
                 <Button
                     className="text-red-700 hover:text-red-500 font-semibold sm:px-0 "
                     label="Delete"
                     type="button"
-                    // onClick={() => deleteClicks(task._id)}
+                    onClick={() => deleteClick(user._id)}
                 />
             </td>
         </tr>

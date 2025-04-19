@@ -6,6 +6,11 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { data } from "../assets/data";
+import {
+    useGetNotificationsQuery,
+    useMarkNotificationasReadMutation,
+} from "../redux/slices/api/userApiSlice";
+import ViewNotification from "./ViewNotification";
 
 const ICONS = {
     alert: <HiBellAlert className="h-5 w-5 text-gray-600 group-hover:text-indigo-600" />,
@@ -16,8 +21,22 @@ const ICONS = {
 const NotificationPanel = () => {
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(null);
-    const readHandler = () => {};
-    const viewHandler = () => {};
+
+    const { data,refetch } = useGetNotificationsQuery();
+
+    const [markNotifasRead] = useMarkNotificationasReadMutation();
+
+    const readHandler = async (type, id) => {
+        await markNotifasRead({ type, id }).unwrap();
+        refetch();
+    };
+
+    const viewHandler = async (el) => {
+        setSelected(el);
+        readHandler("one", el._id);
+        setOpen(true);
+    };
+
     const callToAction = [
         { name: "Cancel", href: "#", icon: "" },
         { name: "Mark All Read", href: "#", icon: "", onClick: () => readHandler("all", "") },
@@ -28,7 +47,7 @@ const NotificationPanel = () => {
                 <PopoverButton className="inline-flex items-center outline-none">
                     <div className="w-8 h-8 flex items-center justify-center text-gray-800  relative">
                         <IoIosNotificationsOutline className="text-2xl" />
-                        {data.length > 0 && (
+                        {data?.length > 0 && (
                             <span className="absolute text-center top-0 right-1 text-sm text-white font-semibold w-4 h-4 rounded-full bg-red-600">
                                 {data?.length}
                             </span>
@@ -96,6 +115,7 @@ const NotificationPanel = () => {
                     </PopoverPanel>
                 </Transition>
             </Popover>
+            <ViewNotification open={open} setOPen={setOpen} el={selected}/>
         </>
     );
 };
