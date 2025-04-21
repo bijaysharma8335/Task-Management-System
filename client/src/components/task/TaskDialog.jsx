@@ -46,7 +46,6 @@ const TaskDialog = ({ task }) => {
     };
 
     const deleteHandler = async () => {
-        
         try {
             const res = await deleteTask({ id: task?._id, isTrashed: true }).unwrap();
 
@@ -148,7 +147,7 @@ const TaskDialog = ({ task }) => {
 
             <AddTask open={openEdit} setOpen={setOpenEdit} task={task} key={new Date().getTime()} />
 
-            <AddSubTask open={open} setOpen={setOpen} />
+            <AddSubTask open={open} setOpen={setOpen}  id={task?._id}/>
 
             <ConfirmationDialog open={openDialog} setOpen={setOpenDialog} onClick={deleteHandler} />
         </>

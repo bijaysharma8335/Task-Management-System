@@ -196,6 +196,7 @@ const createSubTask = async (req, res) => {
         const { title, tag, date } = req.body;
         const { id } = req.params;
 
+
         const newSubTask = { title, tag, date };
 
         const task = await Task.findById(id);
@@ -203,6 +204,7 @@ const createSubTask = async (req, res) => {
         task.subTasks.push(newSubTask);
 
         await task.save();
+        res.status(200).json({ status: true, message: "Sub Task added successfully" });
     } catch (error) {
         console.log(error);
 
