@@ -28,17 +28,17 @@ const TaskTable = ({ tasks }) => {
         <tr className="border-b border-gray-300  text-gray-600 hover:bg-gray-300/10">
             <td className="py-2">
                 <div className="flex items-center gap-2">
-                    <div className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])} />
-                    <p className="text-base text-black">{task.title}</p>
+                    <div className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task?.stage])} />
+                    <p className="text-base text-black">{task?.title}</p>
                 </div>
             </td>
 
             <td className="py-2">
                 <div className="flex gap-1 items-center ">
-                    <span className={clsx("text-lg", PRIORITYSTYLES[task.priority])}>
+                    <span className={clsx("text-lg", PRIORITYSTYLES[task?.priority])}>
                         {ICONS[task.priority]}
                     </span>
-                    <span className="capitalize">{task.priority}</span>
+                    <span className="capitalize">{task?.priority}</span>
                 </div>
             </td>
             <td className="py-2">
@@ -136,7 +136,7 @@ const Dashboard = () => {
         );
 
     // const totals = summary.totalTasks;
-    const totals=data.tasks
+    const totals = data?.tasks;
     const stats = [
         {
             _id: "1",
@@ -197,7 +197,7 @@ const Dashboard = () => {
             </div>
             <div className="w-full bg-white my-16 p-4 rounded shadow-sm">
                 <h4 className="text-xl text-gray-600 font-semibold"> Chart by priority</h4>
-                <Chart data={data.graphData}/>
+                <Chart data={data?.graphData} />
             </div>
 
             <div className="w-full flex flex-col md:flex-row gap-4 2xl:gap-10 py-8">
@@ -206,7 +206,7 @@ const Dashboard = () => {
                 <TaskTable tasks={data?.last10Task} />
 
                 {/* /right */}
-                <UserTable users={data.users} />
+                <UserTable users={data?.users} />
             </div>
         </div>
     );

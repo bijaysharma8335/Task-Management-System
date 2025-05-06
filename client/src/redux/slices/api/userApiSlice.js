@@ -41,7 +41,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
-        markNotificationasRead: builder.mutation({
+        markNotificationAsRead: builder.mutation({
             query: (data) => ({
                 url: `${USER_URL}/notifications`,
                 method: "PUT",
@@ -66,6 +66,6 @@ export const {
     useDeleteUserMutation,
     useUserActionMutation,
     useGetNotificationsQuery,
-    useMarkNotificationasReadMutation,
+    useMarkNotificationAsReadMutation,
     useChangePasswordMutation,
 } = userApiSlice;

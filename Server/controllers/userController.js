@@ -90,7 +90,7 @@ const getNotificationsList = async (req, res) => {
             team: userId,
             isRead: { $nin: [userId] },
         }).populate("task", "title");
-        res.status(200).json(notifications);
+        res.status(201).json(notifications);
     } catch (error) {
         console.log(error);
         return res.status(400).json({ status: false, message: error.message });
